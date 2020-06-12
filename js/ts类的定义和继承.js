@@ -30,16 +30,19 @@ var Person = /** @class */ (function () {
 }());
 var p = new Person("gaominxue");
 p.run();
-alert(p.getName());
+// alert(p.getName());
 p.setName("zzxuexi");
-alert(p.getName());
-//2.ts中实现继承 extends,super
+// alert(p.getName());
+//2.ts中实现继承 extends,super 子类在继承父类的方法时还可以扩展自己的方法
 var Person1 = /** @class */ (function () {
     function Person1(params) {
         this.name = params;
     }
     Person1.prototype.run = function () {
         return this.name + "\u5728\u4E0A\u5B66";
+    };
+    Person1.prototype.work = function () {
+        return this.name + "\u5728\u5DE5\u4F5C";
     };
     return Person1;
 }());
@@ -52,3 +55,35 @@ var Web = /** @class */ (function (_super) {
 }(Person1));
 var w1 = new Web("王五");
 w1.run();
+// alert(w1.work())
+//3.类里面的修饰符， tsc里面定义属性的时候给我们提供了三种修饰符
+/**
+ * public  公有     在类里面 子类 类外面都可以访问
+ * protected  保护  在类里面 子类里面可以访问，类外面没法访问
+ * private 私有     在类里面可以访问 子类和类外面没法访问
+ * 属性如果不加修饰符 默认就是公有的
+ */
+var Person2 = /** @class */ (function () {
+    function Person2(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person2.prototype.getinfo = function () {
+        return this.name + "\u7684\u5E74\u9F84\u662F\uFF1A" + this.age;
+    };
+    return Person2;
+}());
+var Web2 = /** @class */ (function (_super) {
+    __extends(Web2, _super);
+    function Web2(name, age) {
+        return _super.call(this, name, age) || this;
+    }
+    Web2.prototype.work = function () {
+        return "\u5DE5\u4EBA\u7684\u540D\u5B57\u662F\uFF1A" + this.name;
+    };
+    return Web2;
+}(Person2));
+var w2 = new Web2("张三", 40);
+alert(w2.getinfo());
+var p2 = new Person2("李四", 50);
+// alert(p2.age);类外面不能访问私有属性
