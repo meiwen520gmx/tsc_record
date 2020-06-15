@@ -19,3 +19,48 @@
 function getData3<T>(value:T):T{
   return value;
 }
+console.log(getData3<number>(123));
+
+//泛型：比如有个最小堆算法，需要同时支持返回数字和字符串两种类型，通过类的泛型来实现
+class MinClass{
+  list:number[] = [];
+  add(num:number):void{
+    this.list.push(num)
+  }
+  min():number{
+    let minNum = this.list[0];
+    for(let i = 0;i < this.list.length;i++){
+      if(minNum>this.list[i]){
+        minNum = this.list[i]
+      }
+    }
+    return minNum;
+  }
+}
+let m = new MinClass();
+m.add(3);
+m.add(33);
+m.add(5);
+m.add(55);
+m.add(35);
+console.log(m.min())
+
+
+
+class MinClass1<T>{
+  list:T[] = [];
+  add(val:T):void{
+    this.list.push(val)
+  }
+  min():T{
+    let minNum = this.list[0];
+    for(let i = 0;i < this.list.length;i++){
+      if(minNum>this.list[i]){
+        minNum = this.list[i]
+      }
+    }
+    return minNum;
+  }
+}
+let m1 = new MinClass1<number>();
+let m2 = new MinClass1<string>();
